@@ -65,6 +65,7 @@ const Navbar: React.FC = () => {
       });
       dispatch(removeUser());
       navigate("/auth/login");
+      localStorage.removeItem("userID");
     } catch (error) {
       console.log(error);
     }

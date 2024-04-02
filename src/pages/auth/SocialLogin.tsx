@@ -41,6 +41,7 @@ const SocialLogin: React.FC = () => {
           } else if (data.user.role === "admin") {
             navigate("/admin");
           }
+          localStorage.setItem("userID", data.user._id);
         }
       })
       .catch((err) => console.log(err));

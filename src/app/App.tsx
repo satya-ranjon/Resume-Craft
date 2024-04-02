@@ -5,12 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../services/auth/authSelector";
 import { setUser } from "../services/auth/authSlice";
 import Loader from "../components/common/Loader";
+import { useGetStartQuery } from "../services/api/api";
 const baseUrl = import.meta.env.VITE_BASE_URL_API;
 
 const App: React.FC = () => {
   const user = useSelector(selectUser);
   const [loading, setLoading] = useState<boolean>(true);
   const dispatch = useDispatch();
+  useGetStartQuery({});
+  const userID = localStorage.getItem("userID");
 
   const refreshAccessToken = async () => {
     try {
@@ -19,6 +22,9 @@ const App: React.FC = () => {
         credentials: "include",
       });
       const data = await response.json();
+      if (!data.success) {
+        localStorage.removeItem("userID");
+      }
 
       dispatch(setUser({ user: data.user, accessToken: data.accessToken }));
     } catch (error) {
@@ -29,12 +35,19 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    refreshAccessToken();
+    if (userID) {
+      refreshAccessToken();
+    }
+    if (!userID) {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
     const tokenRefreshInterval = setInterval(async () => {
-      refreshAccessToken();
+      if (userID) {
+        refreshAccessToken();
+      }
     }, 4 * 60 * 1000);
 
     return () => clearInterval(tokenRefreshInterval);

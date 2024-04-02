@@ -13,6 +13,9 @@ const apiSlice = createApi({
   tagTypes: ["paymentHistory", "price", "allPayment"],
 
   endpoints: (builder) => ({
+    getStart: builder.query({
+      query: () => `/`,
+    }),
     getPrice: builder.query({
       query: () => `/payment/v1/single`,
       providesTags: ["price"],
@@ -85,6 +88,7 @@ const apiSlice = createApi({
 });
 
 export const {
+  useGetStartQuery,
   useGetPriceQuery,
   useCreatePaymentMutation,
   useGetPaymentHistoryQuery,

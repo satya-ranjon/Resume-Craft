@@ -10,8 +10,10 @@ import useTitleSet from "../../hooks/useTitleSet";
 const baseUrl = import.meta.env.VITE_BASE_URL_API;
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>(
+    "agitatedfaraday4@heywhatsoup.com"
+  );
+  const [password, setPassword] = useState<string>("123456");
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -54,6 +56,7 @@ const Login: React.FC = () => {
           showConfirmButton: false,
           timer: 1000,
         });
+        localStorage.setItem("userID", data.user._id);
       }
     } catch (error) {
       console.log(error);
