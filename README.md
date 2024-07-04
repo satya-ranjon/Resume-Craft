@@ -10,7 +10,6 @@
 
 
 <h2 align="center">
-Resume Craft<br/>
   <a href="https://resumecraft01.netlify.app/" target="_blank">Demo Link - - -</a>
 </h2>
 <div align="center">
